@@ -1,6 +1,6 @@
 {
 	"name": "@baileyherbert/dependency-graph",
-	"version": "1.0.0",
+	"version": "dev",
 	"description": "A simple and modern dependency graph for TypeScript.",
 	"author": "Bailey Herbert <hello@bailey.sh> (https://bailey.sh)",
 	"license": "MIT",
@@ -12,12 +12,11 @@
 		"dist/**/*"
 	],
 	"scripts": {
-		"build": "tsc",
-		"dev": "tsc -w"
+		"build": "tsc"
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@types/node": "^14",
-		"typescript": "^4.3"
+		"@types/node": "^18.0.0",
+		"typescript": "^5.3.3"
 	}
 }
