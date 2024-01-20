@@ -1,0 +1,31 @@
+name: publish
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm run build
+      - id: get_version
+        uses: baileyherbert/version-action@v3.0.0
+      - name: Set user
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      - run: npm --no-git-tag-version version ${{ steps.get_version.outputs.version-without-v }}
+
+      # First release is manual
+      - if: steps.get_version.outputs.version-without-v != '1.0.0'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
